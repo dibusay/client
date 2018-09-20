@@ -42,20 +42,25 @@ export default class Home extends Component{
             
             clarifai.models.predict(Clarifai.FOOD_MODEL, file)
             .then(result => {
-              console.log("berhasil", result);
+              // console.log("berhasil", result);
               const ingredients = []
               const { concepts } = result.outputs[0].data
               if (concepts && concepts.length > 0) {
                 for (const prediction of concepts) {
                   console.log(prediction.name,"-----",prediction.value);
-                  ingredients.push(prediction.name)
+
+              //******************************************
+                  if(prediction.value >= 0.95){
+                    ingredients.push(prediction.name)
+                  }
                 }
               }
-
+              console.log('ingredients==>', ingredients)
               const {navigate} = this.props.navigation
-              // console.log(recipe);
               
-              navigate('Recipes')
+              navigate('Recipes', { ingredients })
+            //******************************************
+            
               // this.setState({ loading: false })
             })
             .catch(e => {
@@ -77,7 +82,7 @@ export default class Home extends Component{
     render(){
         return(
                 <Container>
-                    <Text>This is Home Screen</Text>
+                    <Text>This is Home Screen!</Text>
                     <TouchableOpacity style={{backgroundColor:'green',margin:10,padding:10}}
                         onPress={this.addImage}
                     >   
