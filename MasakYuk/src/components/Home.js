@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import { Container, Text, Content, Icon} from 'native-base'
-import { TouchableOpacity } from 'react-native'
+import { Container, Text, Content, Icon, Button, Thumbnail, Spinner } from 'native-base'
+import { View } from 'react-native'
 import ImagePicker from 'react-native-image-picker'
 const Clarifai = require('clarifai')
 
@@ -11,7 +11,7 @@ const clarifai = new Clarifai.App({
 const options={
     title: 'my pic app',
     takePhotoButtonTitle: 'Take photo with your camera',
-    chooseFromLibraryButtonTitle: 'Choose photo from library',
+    chooseFromLibraryButtonTitle: 'Choose photo from your library',
   }
 
 
@@ -19,7 +19,9 @@ export default class Home extends Component{
     constructor(props){
         super(props)
         this.state={
-          image: null
+          image: null,
+          loading: false,
+          img: null
         }
     }
     addImage=()=>{
@@ -39,7 +41,10 @@ export default class Home extends Component{
             const file = { base64: response.data }
             // let source = { uri: response.uri };
             console.log(file);
-            
+            this.setState({
+              loading:true,
+              img: response.uri
+            })
             clarifai.models.predict(Clarifai.FOOD_MODEL, file)
             .then(result => {
               // console.log("berhasil", result);
@@ -55,7 +60,9 @@ export default class Home extends Component{
                   }
                 }
               }
-              console.log('ingredients==>', ingredients)
+              this.setState({
+                loading:false
+              })
               const {navigate} = this.props.navigation
               
               navigate('Recipes', { ingredients })
@@ -79,16 +86,39 @@ export default class Home extends Component{
         }
     }
 
+    componentDidMount(){
+      this.setState({
+        loading:false,
+        img: null
+      })
+    }
     render(){
         return(
-                <Container>
-                    <Text>This is Home Screen!</Text>
-                    <TouchableOpacity style={{backgroundColor:'green',margin:10,padding:10}}
-                        onPress={this.addImage}
-                    >   
-                        <Text style={{color:'#fff'}}>Select Image</Text>
-                    </TouchableOpacity>
-                </Container>
+          <Container style={{justifyContent:'center'}}>
+                <View style={{alignSelf:'center'}}>
+                  {
+                    this.state.img ? (
+                        <Thumbnail source={{uri: this.state.img}} style={{height:200, width:200, borderRadius:100}}/>
+                      ) : (
+                        <Thumbnail source={{ uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQUVEOFjXa1INx1CB6hUXF--LiEnqimWs3TJDitFUbHWZGhPaErlg' }} style={{height:200, width:200}}/>
+                    )
+                  }
+                  <Button rounded  style={{alignSelf:'center', marginTop:15}}
+                      onPress={this.addImage}
+                  >   
+                      <Text style={{color:'#fff'}}>Select Image</Text>
+                  </Button>
+                </View>
+            {
+              this.state.loading ? (
+                // <View >
+                  <Spinner style={{alignSelf:'center'}}></Spinner>
+                // </View>
+              ) : (
+                <Text> </Text>
+              )
+            }
+          </Container>
         )
     }
 }
