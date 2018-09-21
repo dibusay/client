@@ -113,7 +113,7 @@ const MainNavigator = createBottomTabNavigator({
         header: null,
         tabBarLabel: 'Home',
         tabBarIcon: ({tintColor}) =>(
-            <Icon color={tintColor} name="md-home" size={25}></Icon>
+            <Icon style={{ color: tintColor }} name="md-home" size={25}></Icon>
         )
       }
   },
@@ -123,7 +123,7 @@ const MainNavigator = createBottomTabNavigator({
         header: null,
         tabBarLabel: 'Favourites',
         tabBarIcon: ({tintColor}) =>(
-            <Icon color={tintColor} name="md-heart" size={25}></Icon>
+            <Icon style={{ color: tintColor }} name="md-heart" size={25}></Icon>
         )
       }
   }

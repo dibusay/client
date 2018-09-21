@@ -79,13 +79,6 @@ export default class Home extends Component{
     
       }
 
-
-    static navigationOptions = {
-        tabBarIcon: ({ tintColor }) => {
-            return <Icon name='md-home' style={{ color: tintColor }} />
-        }
-    }
-
     componentDidMount(){
       this.setState({
         loading:false,
