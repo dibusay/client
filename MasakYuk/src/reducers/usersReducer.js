@@ -7,11 +7,17 @@ const initialState = {
 
 export default function (state = initialState, action) {
   switch(action.type) {
-    case 'FETCH_USER':
-    case 'LOADING_FAVOURITE':
+    case 'GET_USER':
       return {
         ...state,
-        loadingFavourite: true
+        loading: false,
+        data: action.payload,
+        favourites: action.payload.favourites
+      }
+    case 'GET_USER_LOADING':
+      return {
+        ...state,
+        loading: true
       }
     case 'ADD_FAVOURITE_TO_USER':
       return {

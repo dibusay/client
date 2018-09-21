@@ -1,8 +1,24 @@
 import axios from 'axios'
-const apiURL = 'http://192.168.0.76:3000/'
+const apiURL = 'http://192.168.0.76:3000'
 
-export function fetchUser() {
-
+export function getUserData(uid) {
+  return dispatch => {
+    dispatch({ type: 'GET_USER_LOADING' })
+    axios({
+      method: 'get',
+      url: `${apiURL}/users/${uid}`
+    })
+    .then(({ data }) => {
+      console.log('USER ACTION get =>', data)
+      dispatch({
+        type: 'GET_USER',
+        payload: data
+      })
+    })
+    .catch(({ response }) => {
+      console.log('error get users by id', response)
+    })
+  }
 }
 
 export function addFavouriteToUser(uid, detail) {

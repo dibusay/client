@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Image, Dimensions } from 'react-native'
+import { Image, Dimensions, AsyncStorage } from 'react-native'
 import { 
   Text, 
   Container, 
@@ -14,20 +14,40 @@ import {
 } from '../actions/userAction'
 
 const mapStateToProps = (state) => {
-  users: state.users
+  return {
+    users: state.users
+  }
 }
 
 const mapDispatchToProps = (dispatch) => {
+  return {
+    addFavourite: (uid, detail) => {
+      dispatch(addFavouriteToUser(uid, detail))
+    },
+    removeFavourite: (uid, favouriteId) => {
+      dispatch(removeFavouriteFromUser(uid, favouriteId))
+    }
+  }
+}
 
+const saveUID = async uid => {
+  try {
+    await AsyncStorage.setItem('uid', uid)
+  } catch (error) {
+    console.log('error set to storage', error.message)
+  }
+}
+
+const getUID = async () => {
+  try {
+    const uid = await AsyncStorage.getItem('uid') || null
+  } catch (error) {
+    console.log(error.message)
+  }
+  return uid
 }
 
 class DetailScreen extends Component {
-  static navigationOptions = ({ navigation }) => {
-    return {
-      title: navigation.getParam('detail', 'Detail')
-    }
-  }
-
   state = {
     isFavourite: false
   }
@@ -38,6 +58,9 @@ class DetailScreen extends Component {
   }
 
   handleAddFavourite = () => {
+    const { detail } = this.props.navigation.state.params
+    const uid = '23456'
+    this.props.addFavourite(uid, detail)
     // if isFavourite is false
     // /favourite POST
   }
@@ -109,4 +132,4 @@ const styles = {
   }
 }
 
-export default DetailScreen
+export default connect(mapStateToProps, mapDispatchToProps)(DetailScreen)
