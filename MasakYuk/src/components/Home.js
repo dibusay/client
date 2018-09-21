@@ -19,9 +19,10 @@ export default class Home extends Component{
     constructor(props){
         super(props)
         this.state={
-          image: null,
+          images: [],
           loading: false,
-          img: null
+          img: null,
+          add: false
         }
     }
     addImage=()=>{
@@ -35,7 +36,7 @@ export default class Home extends Component{
             console.log('ImagePicker Error: ', response.error);
           }
           else {
-            console.log(response);
+            // console.log(response);
             process.nextTick = setImmediate // RN polyfill
             // const { data } = this.props.navigation.state.params.image
             const file = { base64: response.data }
@@ -48,27 +49,35 @@ export default class Home extends Component{
             clarifai.models.predict(Clarifai.FOOD_MODEL, file)
             .then(result => {
               // console.log("berhasil", result);
-              const ingredients = []
+              const ingredients = this.state.images
+              
               const { concepts } = result.outputs[0].data
               if (concepts && concepts.length > 0) {
                 for (const prediction of concepts) {
-                  console.log(prediction.name,"-----",prediction.value);
+                  // console.log(prediction.name,"-----",prediction.value);
 
               //******************************************
                   if(prediction.value >= 0.95){
-                    ingredients.push(prediction.name)
+                    var status = true
+                    for( var i = 0; i < ingredients.length; i++){
+                      if(ingredients[i]===prediction.name){
+                        status = false
+                      }
+                    }
+                    if(status){
+                      ingredients.push(prediction.name)
+                    }
                   }
                 }
               }
+
+              console.log("ini ingredients", ingredients);
+
               this.setState({
-                loading:false
+                loading:false,
+                add: true,
+                images: ingredients
               })
-              const {navigate} = this.props.navigation
-              
-              navigate('Recipes', { ingredients })
-            //******************************************
-            
-              // this.setState({ loading: false })
             })
             .catch(e => {
               console.log("error",e);
@@ -85,6 +94,49 @@ export default class Home extends Component{
         img: null
       })
     }
+
+    sendIngeridents=()=>{
+      var ingredients = this.state.images
+      const {navigate} = this.props.navigation
+      this.setState({
+        ingredients : [],
+        add : false 
+      })
+      navigate('Recipes', { ingredients })
+    }
+
+    statusButton(){
+      if(this.state.loading){
+        return <Spinner style={{alignSelf:'center'}}></Spinner>
+      }
+      else{
+        if(this.state.add){
+          return (
+            <View style={{flexDirection:"row", marginTop:15}}>
+              <Button rounded  style={{alignSelf:'center'}}
+                onPress={this.addImage}
+              >   
+                <Text style={{color:'#fff'}}>Add Image</Text>
+              </Button>
+              <Button rounded  style={{alignSelf:'center', marginLeft:10}}
+                 onPress={this.sendIngeridents}
+              >   
+                <Text style={{color:'#fff'}}>Done</Text>
+              </Button>
+            </View>
+          )
+        }
+        else{
+          return (
+            <Button rounded  style={{alignSelf:'center', marginTop:15}}
+              onPress={this.addImage}
+            >   
+              <Text style={{color:'#fff'}}>Select Image</Text>
+            </Button>
+          )
+        }
+      }
+    }
     render(){
         return(
           <Container style={{justifyContent:'center'}}>
@@ -96,25 +148,8 @@ export default class Home extends Component{
                         <Thumbnail source={{ uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQUVEOFjXa1INx1CB6hUXF--LiEnqimWs3TJDitFUbHWZGhPaErlg' }} style={{height:200, width:200}}/>
                     )
                   }
-                  <Button rounded  style={{alignSelf:'center', marginTop:15}}
-                      onPress={this.addImage}
-                  >   
-                      <Text style={{color:'#fff'}}>Select Image</Text>
-                  </Button>
-                  
-                  {/*DELETE THIS AFTER*/}
-                  {/* <Button onPress={() => this.props.navigation.navigate('DetailScreen')}><Text>TEST DETAIL PAGE</Text></Button> */}
-
+                  {this.statusButton()}
                 </View>
-            {
-              this.state.loading ? (
-                // <View >
-                  <Spinner style={{alignSelf:'center'}}></Spinner>
-                // </View>
-              ) : (
-                <Text> </Text>
-              )
-            }
           </Container>
         )
     }
