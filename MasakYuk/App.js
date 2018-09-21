@@ -3,6 +3,8 @@ import { createStackNavigator, createBottomTabNavigator } from 'react-navigation
 import Recipes from './src/components/Recipes'
 import Favourites from './src/components/Favourites'
 import Home from './src/components/Home';
+import DetailScreen from './src/screens/DetailScreen'
+
 import { Icon } from 'native-base'
 import { Provider } from 'react-redux';
 import store from './src/store'
@@ -49,6 +51,22 @@ const HomeStack =  createStackNavigator({
       },
       headerStyle:{backgroundColor:'#ffc107'}
     }
+  },
+  DetailScreen: {
+    screen: DetailScreen,
+    navigationOptions: {
+      title: 'masakYuk',
+      headerTitleStyle : {
+        alignSelf:'center',
+        textAlign: 'center',
+        fontWeight:'500',
+        fontSize:24,
+        color: 'white',
+        width: '79%',
+        justifyContent: "center", 
+      },
+      headerStyle:{backgroundColor:'#ffc107'}
+    }
   }
 })
 
@@ -57,6 +75,22 @@ const FavouritesStack =  createStackNavigator({
     screen: Favourites,
     navigationOptions:{
       title: "masakYuk",
+      headerTitleStyle : {
+        alignSelf:'center',
+        textAlign: 'center',
+        fontWeight:'500',
+        fontSize:24,
+        color: 'white',
+        width: '79%',
+        justifyContent: "center", 
+      },
+      headerStyle:{backgroundColor:'#ffc107'}
+    }
+  },
+  DetailScreen: {
+    screen: DetailScreen,
+    navigationOptions: {
+      // title: 'masakYuk',
       headerTitleStyle : {
         alignSelf:'center',
         textAlign: 'center',

@@ -34,7 +34,7 @@ class Recipes extends Component {
         let recipes = (
             <FlatList
                 data={this.props.data}
-                renderItem={({item}) =><RecipeDetail recipe={item} />}
+                renderItem={({item}) =><RecipeDetail navigation={this.props.navigation} recipe={item} />}
                 keyExtractor={(item)=> item.uri}
             />
         )
