@@ -5,7 +5,7 @@ import ImagePicker from 'react-native-image-picker'
 const Clarifai = require('clarifai')
 
 const clarifai = new Clarifai.App({
-  apiKey: '763a686895a647f094356fba50ac6145'
+  apiKey: 'e84f6d23cedc4dd1b7d9e727af03d11b'
 })
 
 const options={
@@ -108,6 +108,10 @@ export default class Home extends Component{
                   >   
                       <Text style={{color:'#fff'}}>Select Image</Text>
                   </Button>
+                  
+                  {/*DELETE THIS AFTER*/}
+                  {/* <Button onPress={() => this.props.navigation.navigate('DetailScreen')}><Text>TEST DETAIL PAGE</Text></Button> */}
+
                 </View>
             {
               this.state.loading ? (

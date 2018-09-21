@@ -90,7 +90,7 @@ const FavouritesStack =  createStackNavigator({
   DetailScreen: {
     screen: DetailScreen,
     navigationOptions: {
-      title: 'masakYuk',
+      // title: 'masakYuk',
       headerTitleStyle : {
         alignSelf:'center',
         textAlign: 'center',
