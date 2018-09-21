@@ -24,7 +24,7 @@ export function getUserData(uid) {
 export function addFavouriteToUser(uid, detail) {
   let { label, image, ingredientLines, calories, totalTime } = detail
   return dispatch => {
-    dispatch({ type: 'LOADING_FAVOURITE'})
+    dispatch({ type: 'LOADING_FAVOURITE' })
     axios({
       method: 'post',
       url: `${apiURL}/favourites`,

@@ -35,7 +35,7 @@ class Favourites extends Component{
                     : users.favourites.length > 0 && 
                       <FlatList
                         data={users.favourites}
-                        renderItem={({item}) => <RecipeDetail navigation={this.props.navigation} recipe={item} />}
+                        renderItem={({item}) => <RecipeDetail navigation={navigation} recipe={item} />}
                         keyExtractor={(item) => item.uri} />
                     // : <Text>{JSON.stringify(users.favourites)}</Text>
                 }
