@@ -1,4 +1,4 @@
-package com.masakyuk;
+package com.example.susanwen.myapplication;
 
 import com.facebook.react.ReactActivity;
 
