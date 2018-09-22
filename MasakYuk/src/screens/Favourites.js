@@ -38,7 +38,7 @@ class Favourites extends Component{
                     : users.favourites.length > 0 && 
                       <FlatList
                         data={users.favourites}
-                        renderItem={({item}) => <RecipeDetail navigation={navigation} recipe={item} />}
+                        renderItem={({item}) => <RecipeDetail remove={'test'} navigation={navigation} recipe={item} />}
                         keyExtractor={(item ,index) => String(index)} />
                 }
                 </Content>

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, Card, CardItem, Body } from 'native-base';
+import { Text, Card, CardItem, Body, Button } from 'native-base';
 import { Image } from 'react-native'
 
 export default class RecipeDetail extends Component {
@@ -23,6 +23,12 @@ export default class RecipeDetail extends Component {
                             <Text>{recipe.calories.toFixed()} calories · {recipe.ingredientLines.length} ingredients </Text>
                         </Body>
                     </CardItem>
+                    { 
+                        this.props.remove &&
+                        <CardItem>
+                            <Button rounded small danger><Text>Remove</Text></Button>
+                        </CardItem>
+                    }
                 </Card>
         )
     }
