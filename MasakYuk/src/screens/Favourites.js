@@ -31,7 +31,6 @@ class Favourites extends Component{
         return(
             <Container>
                 <Content>
-                <Text>{JSON.stringify(this.props.users)}</Text>
                 {
                     users.loading
                     ? <Spinner />

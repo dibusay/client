@@ -50,15 +50,18 @@ export function addFavouriteToUser(uid, detail) {
 export function removeFavouriteFromUser(uid, favouriteId) {
   return dispatch => {
     dispatch({ type: 'LOADING_FAVOURITE' })
+    console.log('masuk action')
     axios({
       method: 'delete',
       url: `${apiURL}/favourites/${favouriteId}`,
       data: { uid }
     })
     .then(({ data }) => {
+      console.log('axiosed')
+      console.log(data)
       dispatch({
         type: 'REMOVE_FAVOURITE_FROM_USER',
-        payload: data
+        payload: data.favourite
       })
     })
     .catch(({ response }) => {
