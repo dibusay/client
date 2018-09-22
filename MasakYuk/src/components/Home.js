@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 
-import { Container, Text, Content, Button, Thumbnail, Spinner, Header, Body, Title, Icon, Right } from 'native-base'
+import { Container, Text, Button, Thumbnail, Spinner, Header, Body, Title, Icon, Right } from 'native-base'
 import { View, StyleSheet, AsyncStorage} from 'react-native'
 
 import ImagePicker from 'react-native-image-picker'
