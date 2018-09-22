@@ -1,51 +1,79 @@
 import React, { Component } from 'react'
-import { View, Image, Dimensions } from 'react-native'
+import { connect } from 'react-redux'
+import { Image, Dimensions, AsyncStorage } from 'react-native'
 import { 
   Text, 
   Container, 
   Content,
   Button,
-  Header, 
-  Body,
-  H2, H3
 } from 'native-base'
 
-class DetailScreen extends Component {
-  static navigationOptions = ({ navigation }) => {
-    return {
-      title: navigation.getParam('detail', 'Detail')
+import { 
+  addFavouriteToUser, 
+  removeFavouriteFromUser 
+} from '../actions/userAction'
+
+const mapStateToProps = (state) => {
+  return {
+    users: state.users
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addFavourite: (uid, detail) => {
+      dispatch(addFavouriteToUser(uid, detail))
+    },
+    removeFavourite: (uid, favouriteId) => {
+      dispatch(removeFavouriteFromUser(uid, favouriteId))
     }
   }
-  // render() {
-  //   const { detail } = this.props.navigation.state.params
-    // return (
-    //   <Container>
-    //     <Content>
-    //       <Image source={{ uri: detail.image }} resizeMode={'cover'} style={{ width: Dimensions.get('window').width }} />
-    //       <Container style={styles.container}>
-    //         <H2>{detail.label}</H2>
-    //         <Container style={styles.section}>
-    //           <H3>Ingredients</H3>
-    //           {
-    //             detail.ingredientLines.map((ingredient, index) => {
-    //               return <Text style={styles.text}>- {ingredient}</Text>
-    //             })
-    //           }
-    //         </Container>
-    //         <Container style={styles.section}>
-    //           <H3>Cooking Time:</H3>
-    //           <Text style={styles.text}>{detail.totalTime} minutes</Text>
-    //         </Container>
-    //         <Container style={styles.section}>
-    //           <H3>Calories:</H3>
-    //           <Text style={styles.text}>{detail.calories.toFixed()}</Text>
-    //         </Container>
-    //         <Text style={styles.text}>{detail.uri}</Text>
-    //       </Container>
-    //     </Content>
-    //   </Container>
-    // )
-  // }
+}
+
+// const saveUID = async uid => {
+//   try {
+//     await AsyncStorage.setItem('uid', uid)
+//   } catch (error) {
+//     console.log('error set to storage', error.message)
+//   }
+// }
+
+// const getUID = async () => {
+//   try {
+//     const uid = await AsyncStorage.getItem('uid') || null
+//   } catch (error) {
+//     console.log(error.message)
+//   }
+//   return uid
+// }
+
+class DetailScreen extends Component {
+  state = {
+    isFavourite: false
+  }
+
+  componentDidMount() {
+    console.log('detail data',this.props.navigation.state.params.detail)
+    // check if already favourited or not
+    // compare favourite data from database with favourites inside user array
+  }
+
+  handleAddFavourite = () => {
+    const { detail } = this.props.navigation.state.params
+    // const uid = '23456'
+    AsyncStorage.getItem('uid')
+    .then(uid => {
+      this.props.addFavourite(uid, detail)
+    })
+    // if isFavourite is false
+    // /favourite POST
+  }
+
+  handleRemoveFavourite = () => {
+    // if isFavourite is true
+    // /favourite/:id DELETE
+  }
+
   render () {
     const { detail } = this.props.navigation.state.params
     return (
@@ -56,7 +84,11 @@ class DetailScreen extends Component {
           <Content style={styles.container}>
             <Content style={[styles.section, { flexDirection: 'row' }]}>
               <Text style={styles.mainTitle}>{detail.label}</Text>
-              <Button rounded small danger><Text>Favourite!</Text></Button>
+              <Button rounded small danger
+                onPress={this.handleAddFavourite}
+              >
+                <Text>Favourite!</Text>
+              </Button>
             </Content>
             <Content style={styles.section}>
               <Text style={styles.sectionTitle}>Ingredients</Text>
@@ -104,4 +136,4 @@ const styles = {
   }
 }
 
-export default DetailScreen
+export default connect(mapStateToProps, mapDispatchToProps)(DetailScreen)

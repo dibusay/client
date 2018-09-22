@@ -1,13 +1,24 @@
 import React, { Component } from 'react'
-import { StyleSheet, TextInput, View, Alert } from 'react-native'
+import { StyleSheet, Text, TextInput, View, Button, Alert, AsyncStorage } from 'react-native'
 import { Icon, Button, Text } from 'native-base'
-import firebase from 'react-native-firebase'
 
-export default class Login extends Component {
+import firebase from 'react-native-firebase'
+import axios from 'axios'
+// const apiURL = 'http://192.168.0.76:3000'
+const apiURL = 'https://server-kujumibbvi.now.sh'
+
+class Login extends Component {
   state = { 
     email: '',
     password: '',
     errorMessage: null
+  }
+
+  componentDidMount() {
+    AsyncStorage.getItem('uid')
+    .then(data => {
+      console.log('uid', data)
+    })
   }
 
   handleLogin = () => {
@@ -18,7 +29,32 @@ export default class Login extends Component {
     firebase
       .auth()
       .signInAndRetrieveDataWithEmailAndPassword(email, password)
-      .then(() => this.props.navigation.navigate('Main'))
+      .then((response) => {
+        // needs refactoring, move to actionCreator if possible
+        axios({
+          method: 'post',
+          url: `${apiURL}/users`,
+          data: {
+            userId: response.user._user.uid,
+            userName: response.user._user.displayName,
+            email: response.user._user.email,
+          }
+        })
+        .then(({ data }) => {
+          console.log('masuk login route')
+          AsyncStorage.setItem('uid', response.user._user.uid)
+          .then(() => {
+            console.log('masuk asyncstorage')
+            this.props.navigation.navigate('Main')
+          })
+          .catch(err => {
+            console.log('error asyncstorage', err)
+          })
+        })
+        .catch(({ response }) =>{
+          console.log('error login', response)
+        })
+      })
       .catch(error => this.setState({ errorMessage: error.message }))
     }
   }
@@ -61,6 +97,7 @@ export default class Login extends Component {
     )
   }
 }
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -77,3 +114,5 @@ const styles = StyleSheet.create({
     borderRadius: 8,
   }
 })
+
+export default Login

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { createStackNavigator, createBottomTabNavigator, createSwitchNavigator  } from 'react-navigation';
 import Recipes from './src/components/Recipes'
-import Favourites from './src/components/Favourites'
+import Favourites from './src/screens/Favourites'
 import Home from './src/components/Home';
 import DetailScreen from './src/screens/DetailScreen'
 import SignUp from './src/components/SignUp'
