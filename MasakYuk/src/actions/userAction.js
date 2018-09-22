@@ -1,5 +1,6 @@
 import axios from 'axios'
-const apiURL = 'http://192.168.0.76:3000'
+// const apiURL = 'http://192.168.0.76:3000'
+const apiURL = 'https://server-kujumibbvi.now.sh'
 
 export function getUserData(uid) {
   return dispatch => {

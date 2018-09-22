@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { Container, Text, Content, Icon, Spinner } from 'native-base'
-import { FlatList } from 'react-native'
+import { FlatList, AsyncStorage } from 'react-native'
 import { connect } from 'react-redux';
 
 import { getUserData } from '../actions/userAction'
@@ -22,7 +22,11 @@ const mapStateToProps = state => {
 
 class Favourites extends Component{
     componentDidMount() {
-        this.props.getUser('23456')
+        AsyncStorage.getItem('uid')
+        .then(uid => {
+            console.log('get uid asyncstorage', uid)
+            this.props.getUser(uid)
+        })
     }
 
     // componentDidUpdate() {}

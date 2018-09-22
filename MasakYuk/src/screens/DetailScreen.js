@@ -30,22 +30,22 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-const saveUID = async uid => {
-  try {
-    await AsyncStorage.setItem('uid', uid)
-  } catch (error) {
-    console.log('error set to storage', error.message)
-  }
-}
+// const saveUID = async uid => {
+//   try {
+//     await AsyncStorage.setItem('uid', uid)
+//   } catch (error) {
+//     console.log('error set to storage', error.message)
+//   }
+// }
 
-const getUID = async () => {
-  try {
-    const uid = await AsyncStorage.getItem('uid') || null
-  } catch (error) {
-    console.log(error.message)
-  }
-  return uid
-}
+// const getUID = async () => {
+//   try {
+//     const uid = await AsyncStorage.getItem('uid') || null
+//   } catch (error) {
+//     console.log(error.message)
+//   }
+//   return uid
+// }
 
 class DetailScreen extends Component {
   state = {
@@ -60,8 +60,11 @@ class DetailScreen extends Component {
 
   handleAddFavourite = () => {
     const { detail } = this.props.navigation.state.params
-    const uid = '23456'
-    this.props.addFavourite(uid, detail)
+    // const uid = '23456'
+    AsyncStorage.getItem('uid')
+    .then(uid => {
+      this.props.addFavourite(uid, detail)
+    })
     // if isFavourite is false
     // /favourite POST
   }

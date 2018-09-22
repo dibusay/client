@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { Container, Text, Content, Icon, Button, Thumbnail, Spinner } from 'native-base'
-import { View, StyleSheet } from 'react-native'
+import { View, StyleSheet, AsyncStorage } from 'react-native'
 import ImagePicker from 'react-native-image-picker'
 import firebase from 'react-native-firebase'
 
@@ -15,10 +15,26 @@ const options={
     title: 'my pic app',
     takePhotoButtonTitle: 'Take photo with your camera',
     chooseFromLibraryButtonTitle: 'Choose photo from your library',
+}
+
+const saveUID = async uid => {
+  try {
+    await AsyncStorage.setItem('uid', uid)
+  } catch (error) {
+    console.log('error set to storage', error.message)
   }
+}
 
+const getUID = async () => {
+  try {
+    const uid = await AsyncStorage.getItem('uid') || null
+  } catch (error) {
+    console.log(error.message)
+  }
+  return uid
+}
 
-export default class Home extends Component{
+class Home extends Component{
     constructor(props){
         super(props)
         this.state={
@@ -35,7 +51,12 @@ export default class Home extends Component{
       firebase
         .auth()
         .signOut()
-        .then(() => this.props.navigation.navigate('Login'))
+        .then(() => {
+          AsyncStorage.removeItem('uid')
+          .then(() => {
+            this.props.navigation.navigate('Login')
+          })
+        })
         .catch(error => this.setState({ errorMessage: error.message }))
     }
 
@@ -101,16 +122,33 @@ export default class Home extends Component{
         });
     
       }
-
+    
+    // componentWillMount() {
+    //   AsyncStorage.getItem('uid')
+    //   .then(data => {
+    //     console.log('will mount asyncstorage data', data)
+    //   })
+    //   .catch(err => {
+    //     console.log('error asyncstorage', err)
+    //   })
+    // }
     componentDidMount(){
       const { currentUser } = firebase.auth()
       this.setState({ currentUser })
       console.log('currentUser==>', currentUser)
 
-      this.setState({
-        loading:false,
-        img: null
+      AsyncStorage.getItem('uid')
+      .then(data => {
+        console.log('did mount asyncstorage data', data)
+        this.setState({
+          loading:false,
+          img: null
+        })
       })
+      .catch(err => {
+        console.log('error asyncstorage', err)
+      })
+
     }
 
     sendIngeridents=()=>{
@@ -188,3 +226,5 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   }
 })
+
+export default Home

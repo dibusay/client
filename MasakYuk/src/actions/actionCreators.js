@@ -2,6 +2,8 @@ import { FETCH_RECIPES, LOADING } from './types';
 
 import { addError } from './errors';
 import axios from 'axios'
+// const apiURL = 'http://192.168.0.76:3000'
+const apiURL = 'https://server-kujumibbvi.now.sh'
 
 function handleRequest(){
     console.log('actionCreators: hit handleRequest!')
@@ -23,7 +25,7 @@ export function fetchRecipes(query){
     return dispatch => {
         dispatch(handleRequest())
         // axios.get(`https://server-kujumibbvi.now.sh/recipes?q=${query}`)
-        axios.get(`http://192.168.0.76:3000/recipes?q=${query}`)
+        axios.get(`${apiURL}/recipes?q=${query}`)
             .then(({data}) => {
                 console.log('client: data===>', data)
                 let recipes = data.recipes
