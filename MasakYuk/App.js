@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
-import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
+import { createStackNavigator, createBottomTabNavigator, createSwitchNavigator  } from 'react-navigation';
 import Recipes from './src/components/Recipes'
 import Favourites from './src/components/Favourites'
 import Home from './src/components/Home';
 import DetailScreen from './src/screens/DetailScreen'
-
+import SignUp from './src/components/SignUp'
+import Login from './src/components/Login'
+import Loading from './src/components/Loading'
 import { Icon } from 'native-base'
 import { Provider } from 'react-redux';
 import store from './src/store'
@@ -13,7 +15,7 @@ export default class App extends Component{
   render() {
     return (
       <Provider store={store}>
-        <MainNavigator/>
+        <RootNavigator/>
       </Provider>
     );
   }
@@ -139,5 +141,13 @@ const MainNavigator = createBottomTabNavigator({
   }
 })
 
+const RootNavigator = createSwitchNavigator({
+  Loading,
+  SignUp,
+  Login,
+  Main: MainNavigator
+}, {
+  initialRouteName: 'Loading'
+})
 
 

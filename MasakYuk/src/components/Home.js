@@ -1,7 +1,9 @@
 import React, {Component} from 'react';
 import { Container, Text, Content, Icon, Button, Thumbnail, Spinner } from 'native-base'
-import { View } from 'react-native'
+import { View, StyleSheet } from 'react-native'
 import ImagePicker from 'react-native-image-picker'
+import firebase from 'react-native-firebase'
+
 const Clarifai = require('clarifai')
 
 const clarifai = new Clarifai.App({
@@ -22,9 +24,20 @@ export default class Home extends Component{
           images: [],
           loading: false,
           img: null,
-          add: false
+          add: false,
+          currentUser: null,
+          errorMessage: null
         }
     }
+
+    handleLogout = () => {
+      firebase
+        .auth()
+        .signOut()
+        .then(() => this.props.navigation.navigate('Login'))
+        .catch(error => this.setState({ errorMessage: error.message }))
+    }
+
     addImage=()=>{
         ImagePicker.showImagePicker(options, (response) => {
           // console.log('Response = ', response);
@@ -89,6 +102,10 @@ export default class Home extends Component{
       }
 
     componentDidMount(){
+      const { currentUser } = firebase.auth()
+      this.setState({ currentUser })
+      console.log('currentUser==>', currentUser)
+
       this.setState({
         loading:false,
         img: null
@@ -140,6 +157,12 @@ export default class Home extends Component{
     render(){
         return(
           <Container style={{justifyContent:'center'}}>
+                <View style={styles.container}>
+                  <Text>
+                    Hi {this.state.currentUser && this.state.currentUser.email}!
+                  </Text>
+                </View>
+
                 <View style={{alignSelf:'center'}}>
                   {
                     this.state.img ? (
@@ -150,8 +173,17 @@ export default class Home extends Component{
                   }
                   {this.statusButton()}
                 </View>
+
+                 <Text onPress={this.handleLogout}>Logout</Text>
           </Container>
         )
     }
 }
 
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
+  }
+})
