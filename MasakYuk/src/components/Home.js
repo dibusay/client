@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Container, Text, Content, Icon, Button, Thumbnail, Spinner } from 'native-base'
+import { Container, Text, Button, Thumbnail, Spinner, Header, Body, Title, Icon, Right } from 'native-base'
 import { View, StyleSheet } from 'react-native'
 import ImagePicker from 'react-native-image-picker'
 import firebase from 'react-native-firebase'
@@ -156,14 +156,25 @@ export default class Home extends Component{
     }
     render(){
         return(
-          <Container style={{justifyContent:'center'}}>
-                <View style={styles.container}>
-                  <Text>
-                    Hi {this.state.currentUser && this.state.currentUser.email}!
+          <Container>
+            <Header style={{backgroundColor: '#ffc107'}}>
+              <Body>
+                <Title style={{paddingLeft: 8, fontSize: 24, fontWeight:'500'}}>masakYuk</Title>
+              </Body>
+              <Right>
+                <Button transparent onPress={this.handleLogout}>
+                  <Text>Logout</Text>
+                  <Icon name='md-hand' />
+                </Button>
+              </Right>
+            </Header>
+                <View style={styles.greetContainer}>
+                  <Text style={{color: 'gray', fontSize: 18}}>
+                    Hi, {this.state.currentUser && this.state.currentUser.email}!
                   </Text>
                 </View>
 
-                <View style={{alignSelf:'center'}}>
+                <View style={{ marginVertical: '50%', justifyContent: 'center', alignItems: 'center'}}>
                   {
                     this.state.img ? (
                         <Thumbnail source={{uri: this.state.img}} style={{height:200, width:200, borderRadius:100}}/>
@@ -173,17 +184,15 @@ export default class Home extends Component{
                   }
                   {this.statusButton()}
                 </View>
-
-                 <Text onPress={this.handleLogout}>Logout</Text>
           </Container>
         )
     }
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
+  greetContainer:{
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    marginTop: 50
   }
 })
