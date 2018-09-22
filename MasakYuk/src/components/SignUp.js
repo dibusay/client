@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import { StyleSheet, Text, TextInput, View, Button, Alert} from 'react-native'
+import { StyleSheet, TextInput, View, Alert} from 'react-native'
+import { Icon, Button, Text } from 'native-base'
 import firebase from 'react-native-firebase'
 
 export default class SignUp extends Component {
@@ -25,7 +26,7 @@ export default class SignUp extends Component {
     render() {
         return (
         <View style={styles.container}>
-            <Text>Sign Up</Text>
+            <Icon name="md-egg" style={{fontSize: 100, color: 'white'}}/>
             {this.state.errorMessage &&
             <Text style={{ color: 'red' }}>
                 {this.state.errorMessage}
@@ -46,12 +47,18 @@ export default class SignUp extends Component {
                 onChangeText={password => this.setState({ password })}
                 value={this.state.password}
             />
-            <Button title="Sign Up" onPress={this.handleSignUp} />
-            <Button
-                title="Already have an account? Login"
-                onPress={() => this.props.navigation.navigate('Login')}
-            />
+            <View style={{marginTop: 15}}>
+                <Button rounded primary onPress={this.handleSignUp}>
+                    <Icon name='md-person-add' />
+                    <Text>Sign Up</Text>
+                </Button>
             </View>
+            <View style={{marginTop: 15}}>
+                <Button iconLeft transparent primary onPress={() => this.props.navigation.navigate('Login')}>
+                    <Text style={{color: 'gray'}}> Already have an account? Login </Text>
+                </Button>
+            </View>
+        </View>
         )
     }
 }
@@ -60,13 +67,15 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    backgroundColor: '#ffc107'
   },
   textInput: {
     height: 40,
     width: '90%',
-    borderColor: 'gray',
+    borderColor: 'white',
     borderWidth: 1,
-    marginTop: 8
+    marginTop: 10,
+    borderRadius: 8
   }
 })
