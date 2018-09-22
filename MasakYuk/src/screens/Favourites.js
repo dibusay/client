@@ -24,6 +24,7 @@ class Favourites extends Component{
     componentDidMount() {
         this.props.getUser('23456')
     }
+    // componentDidUpdate()
     render(){
         const { users, navigation } = this.props
         return(
@@ -37,10 +38,8 @@ class Favourites extends Component{
                         data={users.favourites}
                         renderItem={({item}) => <RecipeDetail navigation={navigation} recipe={item} />}
                         keyExtractor={(item) => item.uri} />
-                    // : <Text>{JSON.stringify(users.favourites)}</Text>
                 }
                 </Content>
-                {/* <Text>{JSON.stringify(this.props.users.favourites)}</Text> */}
             </Container>
         )
     }
