@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import { StyleSheet, Text, TextInput, View, Button, Alert } from 'react-native'
+import { StyleSheet, TextInput, View, Alert } from 'react-native'
+import { Icon, Button, Text } from 'native-base'
 import firebase from 'react-native-firebase'
 
 export default class Login extends Component {
@@ -25,7 +26,7 @@ export default class Login extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text>Login</Text>
+        <Icon name="md-egg" style={{fontSize: 100, color: '#ffc107'}}/>
         {this.state.errorMessage &&
           <Text style={{ color: 'red' }}>
             {this.state.errorMessage}
@@ -45,11 +46,17 @@ export default class Login extends Component {
           onChangeText={password => this.setState({ password })}
           value={this.state.password}
         />
-        <Button title="Login" onPress={this.handleLogin} />
-        <Button
-          title="Don't have an account? Sign Up"
-          onPress={() => this.props.navigation.navigate('SignUp')}
-        />
+        <View style={{marginTop: 15}}>
+          <Button rounded info onPress={this.handleLogin}>
+            <Icon name='people' />
+            <Text> Login </Text>
+          </Button>
+        </View>
+        <View style={{marginTop: 15}}>
+          <Button iconLeft transparent primary onPress={() => this.props.navigation.navigate('SignUp')}>
+            <Text style={{color: 'gray'}}> Don't have an account? Sign Up </Text>
+          </Button>
+        </View>
       </View>
     )
   }
@@ -58,13 +65,15 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    backgroundColor: 'white'
   },
   textInput: {
     height: 40,
     width: '90%',
-    borderColor: 'gray',
+    borderColor: '#ffc107',
     borderWidth: 1,
-    marginTop: 8
+    marginTop: 10,
+    borderRadius: 8,
   }
 })
