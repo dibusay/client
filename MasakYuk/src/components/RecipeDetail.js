@@ -9,6 +9,7 @@ export default class RecipeDetail extends Component {
     }
     render(){
         let recipe = this.props.recipe;
+        console.log('recipedetail data', recipe)
         return(
                 <Card> 
                     <CardItem header button onPress={this.handleRedirect}>

@@ -8,6 +8,7 @@ const initialState = {
 export default function (state = initialState, action) {
   switch(action.type) {
     case 'GET_USER':
+      console.log('GET_USER', action.payload)
       return {
         ...state,
         loading: false,
@@ -20,6 +21,8 @@ export default function (state = initialState, action) {
         loading: true
       }
     case 'ADD_FAVOURITE_TO_USER':
+      console.log('current state', state)
+      console.log('ADD_FAVOURITE', action.payload)
       return {
         ...state,
         loadingFavourite: false,

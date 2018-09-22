@@ -25,6 +25,7 @@ export function addFavouriteToUser(uid, detail) {
   let { label, image, ingredientLines, calories, totalTime } = detail
   return dispatch => {
     dispatch({ type: 'LOADING_FAVOURITE' })
+    console.log('masuk action')
     axios({
       method: 'post',
       url: `${apiURL}/favourites`,
@@ -34,13 +35,14 @@ export function addFavouriteToUser(uid, detail) {
       }
     })
     .then(({ data }) => {
+      console.log('sudah axios post, now dispatching')
       dispatch({
         type: 'ADD_FAVOURITE_TO_USER',
-        payload: data
+        payload: data.favourite
       })
     })
-    .catch(({ response }) => {
-      console.log('Error add to favourite', response)
+    .catch((error) => {
+      console.log('Error add to favourite', error)
     })
   }
 }

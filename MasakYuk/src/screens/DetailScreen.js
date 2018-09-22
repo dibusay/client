@@ -53,6 +53,7 @@ class DetailScreen extends Component {
   }
 
   componentDidMount() {
+    console.log('detail data',this.props.navigation.state.params.detail)
     // check if already favourited or not
     // compare favourite data from database with favourites inside user array
   }

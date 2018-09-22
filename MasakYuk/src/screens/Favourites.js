@@ -24,12 +24,14 @@ class Favourites extends Component{
     componentDidMount() {
         this.props.getUser('23456')
     }
-    // componentDidUpdate()
+
+    // componentDidUpdate() {}
     render(){
         const { users, navigation } = this.props
         return(
             <Container>
                 <Content>
+                <Text>{JSON.stringify(this.props.users)}</Text>
                 {
                     users.loading
                     ? <Spinner />
@@ -37,7 +39,7 @@ class Favourites extends Component{
                       <FlatList
                         data={users.favourites}
                         renderItem={({item}) => <RecipeDetail navigation={navigation} recipe={item} />}
-                        keyExtractor={(item) => item.uri} />
+                        keyExtractor={(item ,index) => String(index)} />
                 }
                 </Content>
             </Container>
