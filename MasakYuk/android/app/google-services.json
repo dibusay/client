@@ -49,6 +49,37 @@
           "status": 2
         }
       }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:977153961205:android:506ff59966319304",
+        "android_client_info": {
+          "package_name": "com.masakYuk.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "977153961205-081vk0jlbuc6dpf5e542eotdp9m3ej5r.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCvmldauL7YWgy2VLJJIzz181lWAEv4OdQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
     }
   ],
   "configuration_version": "1"
