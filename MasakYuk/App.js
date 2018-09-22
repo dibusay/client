@@ -25,7 +25,7 @@ const HomeStack =  createStackNavigator({
   Home: {
     screen: Home,
     navigationOptions:{
-      title: "masakYuk",
+      header: null,
       headerTitleStyle : {
         alignSelf:'center',
         textAlign: 'center',
@@ -35,7 +35,6 @@ const HomeStack =  createStackNavigator({
         width: '79%',
         justifyContent: "center", 
       },
-      headerStyle:{backgroundColor:'#ffc107'}
     }
   },
   Recipes:{
