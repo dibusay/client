@@ -13,6 +13,7 @@ import io.invertase.firebase.auth.RNFirebaseAuthPackage;
 import com.imagepicker.ImagePickerPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 
+import fr.snapp.imagebase64.RNImgToBase64Package;
 import com.emekalites.react.compress.image.ImageCompressPackage;
 import java.util.Arrays;
 import java.util.List;
@@ -33,7 +34,8 @@ public class MainApplication extends Application implements ReactApplication {
           new RNFirebaseAuthPackage(),
           new ImagePickerPackage(),
           new VectorIconsPackage(),
-          new ImageCompressPackage() 
+          new ImageCompressPackage(),
+          new RNImgToBase64Package()
       );
     }
 
