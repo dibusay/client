@@ -9,8 +9,7 @@ import firebase from 'react-native-firebase'
 const Clarifai = require('clarifai')
 
 const clarifai = new Clarifai.App({
-  // rhesa utomo apiKey, don't forget to change
-  apiKey: '5bd1146616fe44cd97f91cbfc084b12f'
+  apiKey: '763a686895a647f094356fba50ac6145'
 })
 
 const options={
