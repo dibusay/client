@@ -5,6 +5,7 @@ import { View, StyleSheet, AsyncStorage} from 'react-native'
 import CompressImage from 'react-native-compress-image';
 import ImagePicker from 'react-native-image-picker'
 import firebase from 'react-native-firebase'
+import ImgToBase64 from 'react-native-image-base64'
 
 const Clarifai = require('clarifai')
 
@@ -82,43 +83,64 @@ class Home extends Component{
               loading:true,
               img: response.uri
             })
-            clarifai.models.predict(Clarifai.FOOD_MODEL, file)
-            .then(result => {
-              // console.log("berhasil", result);
-              const ingredients = this.state.images
-              
-              const { concepts } = result.outputs[0].data
-              if (concepts && concepts.length > 0) {
-                for (const prediction of concepts) {
-                  // console.log(prediction.name,"-----",prediction.value);
 
-              //******************************************
-                  if(prediction.value >= 0.95){
-                    var status = true
-                    for( var i = 0; i < ingredients.length; i++){
-                      if(ingredients[i]===prediction.name){
-                        status = false
+
+
+            //***********new*************//
+
+
+
+            CompressImage.createCompressedImage(response.path, '/storage/emulated/0/Android/data/com.masakyuk/files/Pictures')
+            .then(result=>{
+              ImgToBase64.getBase64String(result.uri)
+              .then(base64String =>{
+
+                clarifai.models.predict(Clarifai.FOOD_MODEL, {base64: base64String})
+                .then(result => {
+                  // console.log("berhasil", result);
+                  const ingredients = this.state.images
+                  
+                  const { concepts } = result.outputs[0].data
+                  if (concepts && concepts.length > 0) {
+                    for (const prediction of concepts) {
+                      // console.log(prediction.name,"-----",prediction.value);
+    
+                  //******************************************
+                      if(prediction.value >= 0.95){
+                        var status = true
+                        for( var i = 0; i < ingredients.length; i++){
+                          if(ingredients[i]===prediction.name){
+                            status = false
+                          }
+                        }
+                        if(status){
+                          ingredients.push(prediction.name)
+                        }
                       }
                     }
-                    if(status){
-                      ingredients.push(prediction.name)
-                    }
                   }
-                }
-              }
-
-              console.log("ini ingredients", ingredients);
-
-              this.setState({
-                loading:false,
-                add: true,
-                images: ingredients
+    
+                  console.log("ini ingredients", ingredients);
+    
+                  this.setState({
+                    loading:false,
+                    add: true,
+                    images: ingredients
+                  })
+                })
+                .catch(e => {
+                  console.log("error",e);
+        
+                })
+              })
+              .catch(err=>{
+                console.log("error base64:", err);
+                
               })
             })
-            .catch(e => {
-              console.log("error",e);
-     
-           })
+            .catch(err=>{
+              console.log("error compress:",err);
+            })
           }
         });
     
