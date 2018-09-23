@@ -3,7 +3,8 @@ import { FETCH_RECIPES, LOADING } from './types';
 import { addError } from './errors';
 import axios from 'axios'
 // const apiURL = 'http://192.168.0.76:3000'
-const apiURL = 'https://server-kujumibbvi.now.sh'
+// const apiURL = 'https://server-kujumibbvi.now.sh'
+const apiURL = 'https://server-vtgwyccyhc.now.sh'
 
 function handleRequest(){
     console.log('actionCreators: hit handleRequest!')
