@@ -5,7 +5,8 @@ import { Icon, Button, Text } from 'native-base'
 import firebase from 'react-native-firebase'
 import axios from 'axios'
 // const apiURL = 'http://192.168.0.76:3000'
-const apiURL = 'https://server-kujumibbvi.now.sh'
+// const apiURL = 'https://server-kujumibbvi.now.sh'
+const apiURL = 'https://server-vtgwyccyhc.now.sh'
 
 class Login extends Component {
   state = { 
