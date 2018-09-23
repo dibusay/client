@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 
 import { Container, Text, Button, Thumbnail, Spinner, Header, Body, Title, Icon, Right } from 'native-base'
 import { View, StyleSheet, AsyncStorage} from 'react-native'
-
+import CompressImage from 'react-native-compress-image';
 import ImagePicker from 'react-native-image-picker'
 import firebase from 'react-native-firebase'
 
