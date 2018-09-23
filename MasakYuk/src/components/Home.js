@@ -84,12 +84,7 @@ class Home extends Component{
               img: response.uri
             })
 
-
-
-            //***********new*************//
-
-
-
+            //*********** react-native-compress-image *************//
             CompressImage.createCompressedImage(response.path, '/storage/emulated/0/Android/data/com.masakyuk/files/Pictures')
             .then(result=>{
               ImgToBase64.getBase64String(result.uri)
