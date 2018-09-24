@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Text, Card, CardItem, Body, Button } from 'native-base';
-import { Image } from 'react-native'
+import { Image, AsyncStorage } from 'react-native'
 import { removeFavouriteFromUser } from '../actions/userAction'
 import { connect } from 'react-redux';
 
@@ -19,9 +19,14 @@ class RecipeDetail extends Component {
     }
 
     handleRemove = () => {
-        let recipe = this.props.recipe;
-        let uid = '23456'
-        this.props.removeFavourite(uid, recipe._id)
+        AsyncStorage.getItem('uid')
+        .then(uid => {
+            let recipe = this.props.recipe;
+            this.props.removeFavourite(uid, recipe._id)
+        })
+        .catch(err => {
+            console.log('RecipeDetail -> get uid error', err)
+        })
     }
 
     render(){
