@@ -30,30 +30,17 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-// const saveUID = async uid => {
-//   try {
-//     await AsyncStorage.setItem('uid', uid)
-//   } catch (error) {
-//     console.log('error set to storage', error.message)
-//   }
-// }
-
-// const getUID = async () => {
-//   try {
-//     const uid = await AsyncStorage.getItem('uid') || null
-//   } catch (error) {
-//     console.log(error.message)
-//   }
-//   return uid
-// }
-
 class DetailScreen extends Component {
   state = {
     isFavourite: false
   }
 
   componentDidMount() {
-    console.log('detail data',this.props.navigation.state.params.detail)
+    const { detail } = this.props.navigation.state.params
+    console.log('detail data', detail)
+    if (detail._id) {
+      this.setState({ isFavourite: true })
+    }
     // check if already favourited or not
     // compare favourite data from database with favourites inside user array
   }
@@ -64,6 +51,7 @@ class DetailScreen extends Component {
     AsyncStorage.getItem('uid')
     .then(uid => {
       this.props.addFavourite(uid, detail)
+      this.setState({ isFavourite: true })
     })
     // if isFavourite is false
     // /favourite POST
@@ -84,11 +72,17 @@ class DetailScreen extends Component {
           <Content style={styles.container}>
             <Content style={[styles.section, { flexDirection: 'row' }]}>
               <Text style={styles.mainTitle}>{detail.label}</Text>
-              <Button rounded small danger
-                onPress={this.handleAddFavourite}
-              >
-                <Text>Favourite!</Text>
-              </Button>
+              {
+                this.state.isFavourite 
+                ? <Button disabled small rounded>
+                    <Text>Favourited</Text>
+                  </Button>
+                : <Button rounded small danger
+                   onPress={this.handleAddFavourite}>
+                    <Text>Favourite!</Text>
+                  </Button>
+
+              }
             </Content>
             <Content style={styles.section}>
               <Text style={styles.sectionTitle}>Ingredients</Text>
