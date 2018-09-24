@@ -7,6 +7,7 @@ import DetailScreen from './src/screens/DetailScreen'
 import SignUp from './src/components/SignUp'
 import Login from './src/components/Login'
 import Loading from './src/components/Loading'
+import Rekognition from './src/components/Rekognition'
 import { Icon } from 'native-base'
 import { Provider } from 'react-redux';
 import store from './src/store'
@@ -104,7 +105,25 @@ const FavouritesStack =  createStackNavigator({
       headerStyle:{backgroundColor:'#ffc107'}
     }
   }
-  
+})
+
+const RekognitionStack = createStackNavigator({
+  Rekognition: {
+    screen: Rekognition,
+    navigationOptions:{
+      title: "Food for Mood",
+      headerTitleStyle : {
+        alignSelf:'center',
+        textAlign: 'center',
+        fontWeight:'500',
+        fontSize:24,
+        color: 'white',
+        width: '79%',
+        justifyContent: "center", 
+      },
+      headerStyle:{backgroundColor:'#ffc107'}
+    }
+  }
 })
 
 const MainNavigator = createBottomTabNavigator({
@@ -127,6 +146,16 @@ const MainNavigator = createBottomTabNavigator({
             <Icon style={{ color: tintColor }} name="md-heart" size={25}></Icon>
         )
       }
+  },
+  Rekognition: {
+    screen: RekognitionStack,
+    navigationOptions:{
+      header: null,
+      tabBarLabel: 'Rekognition',
+      tabBarIcon: ({tintColor}) =>(
+          <Icon style={{ color: tintColor }} name="md-contacts" size={25}></Icon>
+      )
+    }
   }
 }, {
   tabBarOptions:{

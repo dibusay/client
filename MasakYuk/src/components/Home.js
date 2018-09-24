@@ -169,11 +169,11 @@ class Home extends Component{
 
     }
 
-    sendIngeridents=()=>{
+    sendIngredients=()=>{
       var ingredients = this.state.images
       const {navigate} = this.props.navigation
       this.setState({
-        ingredients : [],
+        images : [],
         add : false 
       })
       navigate('Recipes', { ingredients })
@@ -193,7 +193,7 @@ class Home extends Component{
                 <Text style={{color:'#fff'}}>Add Image</Text>
               </Button>
               <Button rounded  style={{alignSelf:'center', marginLeft:10}}
-                 onPress={this.sendIngeridents}
+                 onPress={this.sendIngredients}
               >   
                 <Text style={{color:'#fff'}}>Done</Text>
               </Button>
