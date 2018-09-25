@@ -22,6 +22,7 @@ export default class Rekognition extends Component {
     }
 
     handleRekognition = () => {
+        const { navigate } = this.props.navigation
         ImagePicker.showImagePicker(options, (response) => {
             // console.log('Response = ', response);
             if (response.didCancel) {
@@ -50,15 +51,15 @@ export default class Rekognition extends Component {
                     })
                     .then(({data}) => {
                         console.log('data from mood===>', data)
+                        this.setState({
+                            loading:false,
+                            base64: base64String
+                        })
+                        navigate('MoodResult', { result: data })
                     })
                     .catch(err => {
                         console.log('error di mood ==>', err)
                     })
-                  this.setState({
-                    loading:false,
-                    base64: base64String
-                  })
-                  
                 })
                 .catch(err=>{
                   console.log("base64String error ", err);
