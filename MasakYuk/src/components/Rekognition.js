@@ -45,7 +45,7 @@ export default class Rekognition extends Component {
                 ImgToBase64.getBase64String(result.uri)
                 .then(base64String =>{
                 //   console.log('base64String', base64String)
-                    axios.post('http://192.168.0.76:3000/mood', {
+                    axios.post('http://35.240.255.70/mood', {
                         image: result.uri,
                         base64: base64String
                     })
@@ -138,4 +138,3 @@ export default class Rekognition extends Component {
         )
     }
 }
-

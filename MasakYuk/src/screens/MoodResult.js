@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import { StyleSheet, FlatList, View } from 'react-native'
-import { Container, Content, Spinner, Card, CardItem, Body, Text, Thumbnail } from 'native-base'
+import { StyleSheet, FlatList } from 'react-native'
+import { Container, Content, Card, CardItem, Text, Thumbnail } from 'native-base'
 import RecipeDetail from '../components/RecipeDetail'
 
 class MoodResult extends Component {
@@ -12,9 +12,10 @@ class MoodResult extends Component {
     const image = this.props.navigation.state.params.image
     const { 
       recipes, 
-      foodType, 
+      food, 
       mood, 
-      age 
+      age,
+      gender
     } = this.props.navigation.state.params.result
 
     return (
@@ -25,12 +26,16 @@ class MoodResult extends Component {
               <Thumbnail circle source={{ uri: image }} style={styles.thumbnail} />
             </CardItem>
             <CardItem style={[styles.top, styles.orangeColor, { flexDirection: 'column' }]}>
+              <Text style={styles.moodText}>You are a...</Text>
+              <Text style={[styles.moodText, { fontSize: 24, fontWeight: 'bold' }]}>{gender}, {age} years old</Text>
+            </CardItem>
+            <CardItem style={[styles.top, styles.orangeColor, { flexDirection: 'column' }]}>
               <Text style={styles.moodText}>Mood</Text>
               <Text style={[styles.moodText, { fontSize: 24, fontWeight: 'bold' }]}>You're {mood}!</Text>
             </CardItem>
             <CardItem style={[styles.top, styles.orangeColor, { flexDirection: 'column', marginBottom: 8, borderBottomLeftRadius: 16, borderBottomRightRadius: 16 }]}>
               <Text style={styles.moodText}>Matched Ingredient</Text>
-              <Text style={[styles.moodText, { fontSize: 24, fontWeight: 'bold' }]}>{foodType}</Text>
+              <Text style={[styles.moodText, { fontSize: 24, fontWeight: 'bold' }]}>{food}</Text>
             </CardItem>
           </Card>
           <FlatList
@@ -39,7 +44,7 @@ class MoodResult extends Component {
             keyExtractor={(item, index) => String(index)}
           />
           {/* <Text>{JSON.stringify(mood)}</Text>
-          <Text>{JSON.stringify(foodType)}</Text>
+          <Text>{JSON.stringify(food)}</Text>
           <Text>{JSON.stringify(age)}</Text>
         <Text>{JSON.stringify(recipes)}</Text> */}
         </Content>
