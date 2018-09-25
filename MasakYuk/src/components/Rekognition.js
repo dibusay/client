@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Container, Content, Card, CardItem, Thumbnail, Text, Icon, Spinner } from 'native-base'
+import { Container, Content, Card, CardItem, Thumbnail, Text, Icon, Spinner, Button } from 'native-base'
 import CompressImage from 'react-native-compress-image';
 import ImagePicker from 'react-native-image-picker'
 import ImgToBase64 from 'react-native-image-base64'
@@ -55,7 +55,7 @@ export default class Rekognition extends Component {
                             loading:false,
                             base64: base64String
                         })
-                        navigate('MoodResult', { result: data })
+                        navigate('MoodResult', { result: data, image: this.state.img })
                     })
                     .catch(err => {
                         console.log('error di mood ==>', err)
@@ -71,6 +71,38 @@ export default class Rekognition extends Component {
             }
         });
     }
+
+    // testNavigate = () => {
+    //     this.props.navigation.navigate('MoodResult', {
+    //         result: {
+    //             age: '21',
+    //             mood: 'happy',
+    //             foodType: 'chamomile',
+    //             recipes: [{ 
+    //                 calories: 207.57771100000002,
+    //                 image: 'https://www.edamam.com/web-img/bb2/bb221d581497fa559f5817ca1800ea65.jpg',
+    //                 ingredientLines: [
+    //                     '1 ounce semisweet or bittersweet chocolate, per person',
+    //                     '1 tablespoon water, per person',
+    //                     '1 large egg, per person'
+    //                 ],
+    //                 label: 'Chocolate Mousse',
+    //                 totalTime: 20
+    //             }, {
+    //                 calories: 207.57771100000002,
+    //                 image: 'https://www.edamam.com/web-img/bb2/bb221d581497fa559f5817ca1800ea65.jpg',
+    //                 ingredientLines: [
+    //                     '1 ounce semisweet or bittersweet chocolate, per person',
+    //                     '1 tablespoon water, per person',
+    //                     '1 large egg, per person'
+    //                 ],
+    //                 label: 'Chocolate Mousse',
+    //                 totalTime: 20
+    //             }]
+    //         },
+    //         image: 'https://upload.wikimedia.org/wikipedia/commons/2/23/Vegetables_and_eggs.JPG'
+    //     })
+    // }
 
     render(){
         let userImg = (
@@ -100,6 +132,7 @@ export default class Rekognition extends Component {
                     {
                         this.state.loading ? <Spinner /> : <Text/>
                     }
+                    {/* <Button onPress={this.testNavigate}><Text>MOODRESULT PAGE TEST</Text></Button> */}
                 </Content>
           </Container>
         )
