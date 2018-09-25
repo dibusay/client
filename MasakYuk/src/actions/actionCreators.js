@@ -4,7 +4,7 @@ import { addError } from './errors';
 import axios from 'axios'
 // const apiURL = 'http://192.168.0.76:3000'
 // const apiURL = 'https://server-kujumibbvi.now.sh'
-const apiURL = 'https://server-vtgwyccyhc.now.sh'
+const apiURL = 'http://35.240.255.70'
 
 function handleRequest(){
     console.log('actionCreators: hit handleRequest!')
