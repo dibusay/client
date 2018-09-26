@@ -1,11 +1,13 @@
 import React, {Component} from 'react';
 
 import { Container, Text, Button, Thumbnail, Spinner, Header, Body, Title, Icon, Right } from 'native-base'
-import { View, StyleSheet, AsyncStorage} from 'react-native'
+import { View, StyleSheet, AsyncStorage, Button as NativeButton, TouchableOpacity } from 'react-native'
 import CompressImage from 'react-native-compress-image';
 import ImagePicker from 'react-native-image-picker'
 import firebase from 'react-native-firebase'
 import ImgToBase64 from 'react-native-image-base64'
+
+import LogoTitle from '../components/LogoTitle'
 
 const Clarifai = require('clarifai')
 
@@ -47,6 +49,22 @@ class Home extends Component{
           currentUser: null,
           errorMessage: null
         }
+    }
+
+    static navigationOptions = ({ navigation }) => {
+      return {
+        // title: 'masakYuk',
+        headerTitle: <LogoTitle />,
+        headerRight: (
+          <TouchableOpacity onPress={navigation.getParam('handleLogout')}>
+            <View style={{ flexDirection: 'row', marginRight: 12 }}>
+              <Text style={{ marginRight: 8, color: 'white' }}>Logout</Text>
+              <Icon style={{ color: 'white', fontSize: 21 }} name="md-hand" />
+            </View>
+          </TouchableOpacity>
+        ),
+        headerStyle: { backgroundColor: '#ffc107' }
+      }
     }
 
     handleLogout = () => {
@@ -141,19 +159,13 @@ class Home extends Component{
     
       }
     
-    // componentWillMount() {
-    //   AsyncStorage.getItem('uid')
-    //   .then(data => {
-    //     console.log('will mount asyncstorage data', data)
-    //   })
-    //   .catch(err => {
-    //     console.log('error asyncstorage', err)
-    //   })
-    // }
     componentDidMount(){
+      this.props.navigation.setParams({ handleLogout: this.handleLogout })
+      console.log('props', this.props.navigation)
       const { currentUser } = firebase.auth()
       this.setState({ currentUser })
       console.log('currentUser==>', currentUser)
+
 
       AsyncStorage.getItem('uid')
       .then(data => {
@@ -214,33 +226,22 @@ class Home extends Component{
     render(){
         return(
           <Container>
-            <Header style={{backgroundColor: '#ffc107'}}>
-              <Body>
-                <Title style={{paddingLeft: 8, fontSize: 24, fontWeight:'500'}}>masakYuk</Title>
-              </Body>
-              <Right>
-                <Button transparent onPress={this.handleLogout}>
-                  <Text>Logout</Text>
-                  <Icon name='md-hand' />
-                </Button>
-              </Right>
-            </Header>
-                <View style={styles.greetContainer}>
-                  <Text style={{color: 'gray', fontSize: 18}}>
-                    Hi, {this.state.currentUser && this.state.currentUser.email}!
-                  </Text>
-                </View>
+            <View style={styles.greetContainer}>
+              <Text style={{color: 'gray', fontSize: 18}}>
+                Hi, {this.state.currentUser && this.state.currentUser.email}!
+              </Text>
+            </View>
 
-                <View style={{ marginVertical: '50%', justifyContent: 'center', alignItems: 'center'}}>
-                  {
-                    this.state.img ? (
-                        <Thumbnail source={{uri: this.state.img}} style={{height:200, width:200, borderRadius:100}}/>
-                      ) : (
-                        <Thumbnail source={{ uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQUVEOFjXa1INx1CB6hUXF--LiEnqimWs3TJDitFUbHWZGhPaErlg' }} style={{height:200, width:200}}/>
-                    )
-                  }
-                  {this.statusButton()}
-                </View>
+            <View style={{ marginVertical: '50%', justifyContent: 'center', alignItems: 'center'}}>
+              {
+                this.state.img ? (
+                    <Thumbnail source={{uri: this.state.img}} style={{height:200, width:200, borderRadius:100}}/>
+                  ) : (
+                    <Thumbnail source={{ uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQUVEOFjXa1INx1CB6hUXF--LiEnqimWs3TJDitFUbHWZGhPaErlg' }} style={{height:200, width:200}}/>
+                )
+              }
+              {this.statusButton()}
+            </View>
           </Container>
         )
     }

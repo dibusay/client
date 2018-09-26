@@ -7,6 +7,7 @@ import DetailScreen from './src/screens/DetailScreen'
 import SignUp from './src/components/SignUp'
 import Login from './src/components/Login'
 import Loading from './src/components/Loading'
+import LogoTitle from './src/components/LogoTitle'
 import Rekognition from './src/components/Rekognition'
 import MoodResult from './src/screens/MoodResult'
 import { Icon } from 'native-base'
@@ -26,48 +27,27 @@ export default class App extends Component{
 const HomeStack =  createStackNavigator({
   Home: {
     screen: Home,
-    navigationOptions:{
-      header: null,
-      headerTitleStyle : {
-        alignSelf:'center',
-        textAlign: 'center',
-        fontWeight:'500',
-        fontSize:24,
-        color: 'white',
-        width: '79%',
-        justifyContent: "center", 
-      },
-    }
   },
   Recipes:{
     screen: Recipes,
     navigationOptions:{
-      title: "masakYuk",
-      headerTitleStyle : {
-        alignSelf:'center',
-        textAlign: 'center',
-        fontWeight:'500',
-        fontSize:24,
-        color: 'white',
-        width: '90%',
-        justifyContent: "center", 
-      },
+      headerTitle: <LogoTitle />,
+      // headerTitleStyle : {
+      //   alignSelf:'center',
+      //   textAlign: 'center',
+      //   fontWeight:'500',
+      //   fontSize:24,
+      //   color: 'white',
+      //   width: '79%',
+      //   justifyContent: "center", 
+      // },
       headerStyle:{backgroundColor:'#ffc107'}
     }
   },
   DetailScreen: {
     screen: DetailScreen,
     navigationOptions: {
-      title: 'masakYuk',
-      headerTitleStyle : {
-        alignSelf:'center',
-        textAlign: 'center',
-        fontWeight:'500',
-        fontSize:24,
-        color: 'white',
-        width: '90%',
-        justifyContent: "center", 
-      },
+      headerTitle: <LogoTitle />,
       headerStyle:{backgroundColor:'#ffc107'}
     }
   }
@@ -77,32 +57,14 @@ const FavouritesStack =  createStackNavigator({
   Favourites: {
     screen: Favourites,
     navigationOptions:{
-      title: "masakYuk",
-      headerTitleStyle : {
-        alignSelf:'center',
-        textAlign: 'center',
-        fontWeight:'500',
-        fontSize:24,
-        color: 'white',
-        width: '90%',
-        justifyContent: "center", 
-      },
+      headerTitle: <LogoTitle />,
       headerStyle:{backgroundColor:'#ffc107'}
     }
   },
   DetailScreen: {
     screen: DetailScreen,
     navigationOptions: {
-      // title: 'masakYuk',
-      headerTitleStyle : {
-        alignSelf:'center',
-        textAlign: 'center',
-        fontWeight:'500',
-        fontSize:24,
-        color: 'white',
-        width: '90%',
-        justifyContent: "center", 
-      },
+      headerTitle: <LogoTitle />,
       headerStyle:{backgroundColor:'#ffc107'}
     }
   }
@@ -112,48 +74,30 @@ const RekognitionStack = createStackNavigator({
   Rekognition: {
     screen: Rekognition,
     navigationOptions:{
-      title: "masakYuk",
-      headerTitleStyle : {
-        alignSelf:'center',
-        textAlign: 'center',
-        fontWeight:'500',
-        fontSize:24,
-        color: 'white',
-        width: '90%',
-        justifyContent: "center", 
-      },
+      headerTitle: <LogoTitle />,
       headerStyle:{backgroundColor:'#ffc107'}
     }
   },
   MoodResult: {
     screen: MoodResult,
     navigationOptions:{
-      title: "masakYuk",
-      headerTitleStyle : {
-        alignSelf:'center',
-        textAlign: 'center',
-        fontWeight:'500',
-        fontSize:24,
-        color: 'white',
-        width: '76%',
-        justifyContent: "center", 
-      },
+      headerTitle: <LogoTitle />,
       headerStyle:{backgroundColor:'#ffc107'}
     } 
   },
   DetailScreen: {
     screen: DetailScreen,
     navigationOptions: {
-      // title: 'masakYuk',
-      headerTitleStyle : {
-        alignSelf:'center',
-        textAlign: 'center',
-        fontWeight:'500',
-        fontSize:24,
-        color: 'white',
-        width: '90%',
-        justifyContent: "center", 
-      },
+      headerTitle: <LogoTitle />,
+      // headerTitleStyle : {
+      //   alignSelf:'center',
+      //   textAlign: 'center',
+      //   fontWeight:'500',
+      //   fontSize:24,
+      //   color: 'white',
+      //   width: '90%',
+      //   justifyContent: "center", 
+      // },
       headerStyle:{backgroundColor:'#ffc107'}
     }
   }
