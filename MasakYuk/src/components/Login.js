@@ -32,12 +32,13 @@ class Login extends Component {
       .signInAndRetrieveDataWithEmailAndPassword(email, password)
       .then((response) => {
         // needs refactoring, move to actionCreator if possible
+        let { displayName, email } = response.user._user
         axios({
           method: 'post',
           url: `${apiURL}/users`,
           data: {
             userId: response.user._user.uid,
-            userName: response.user._user.displayName,
+            userName: displayName ? displayName : email,
             email: response.user._user.email,
           }
         })
