@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { View } from 'react-native'
 import { Container, Content, Card, CardItem, Thumbnail, Text, Icon, Spinner, Button } from 'native-base'
 import CompressImage from 'react-native-compress-image';
 import ImagePicker from 'react-native-image-picker'
@@ -51,11 +52,13 @@ export default class Rekognition extends Component {
                     })
                     .then(({data}) => {
                         console.log('data from mood===>', data)
+                        var img  = this.state.img
                         this.setState({
                             loading:false,
-                            base64: base64String
+                            base64: null,
+                            img: null
                         })
-                        navigate('MoodResult', { result: data, image: this.state.img })
+                        navigate('MoodResult', { result: data, image: img })
                     })
                     .catch(err => {
                         console.log('error di mood ==>', err)
@@ -123,7 +126,10 @@ export default class Rekognition extends Component {
             </Card>
         )
         let camera = (
-            <Icon onPress={this.handleRekognition} name="ios-camera" style={{fontSize: 200, color:"#e98df5", marginTop: 140}}/>
+            <View style={{marginTop: 100}}>
+                <Text style={{ fontSize:30, fontFamily: 'sans-serif-thin', alignSelf: 'center'}}>Food for Mood</Text>
+                <Icon onPress={this.handleRekognition} name="ios-camera" style={{fontSize: 200, color:"#e98df5", alignSelf: 'center'}}/>
+            </View>
         )
         return(
             <Container style={{ justifyContent: 'center', alignItems: 'center'}}>

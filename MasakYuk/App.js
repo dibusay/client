@@ -49,7 +49,7 @@ const HomeStack =  createStackNavigator({
         fontWeight:'500',
         fontSize:24,
         color: 'white',
-        width: '79%',
+        width: '90%',
         justifyContent: "center", 
       },
       headerStyle:{backgroundColor:'#ffc107'}
@@ -65,7 +65,7 @@ const HomeStack =  createStackNavigator({
         fontWeight:'500',
         fontSize:24,
         color: 'white',
-        width: '79%',
+        width: '90%',
         justifyContent: "center", 
       },
       headerStyle:{backgroundColor:'#ffc107'}
@@ -84,7 +84,7 @@ const FavouritesStack =  createStackNavigator({
         fontWeight:'500',
         fontSize:24,
         color: 'white',
-        width: '79%',
+        width: '90%',
         justifyContent: "center", 
       },
       headerStyle:{backgroundColor:'#ffc107'}
@@ -100,7 +100,7 @@ const FavouritesStack =  createStackNavigator({
         fontWeight:'500',
         fontSize:24,
         color: 'white',
-        width: '79%',
+        width: '90%',
         justifyContent: "center", 
       },
       headerStyle:{backgroundColor:'#ffc107'}
@@ -112,14 +112,14 @@ const RekognitionStack = createStackNavigator({
   Rekognition: {
     screen: Rekognition,
     navigationOptions:{
-      title: "Food for Mood",
+      title: "masakYuk",
       headerTitleStyle : {
         alignSelf:'center',
         textAlign: 'center',
         fontWeight:'500',
         fontSize:24,
         color: 'white',
-        width: '79%',
+        width: '90%',
         justifyContent: "center", 
       },
       headerStyle:{backgroundColor:'#ffc107'}
@@ -128,18 +128,34 @@ const RekognitionStack = createStackNavigator({
   MoodResult: {
     screen: MoodResult,
     navigationOptions:{
-      title: "Food for Mood",
+      title: "masakYuk",
       headerTitleStyle : {
         alignSelf:'center',
         textAlign: 'center',
         fontWeight:'500',
         fontSize:24,
         color: 'white',
-        width: '79%',
+        width: '76%',
         justifyContent: "center", 
       },
       headerStyle:{backgroundColor:'#ffc107'}
     } 
+  },
+  DetailScreen: {
+    screen: DetailScreen,
+    navigationOptions: {
+      // title: 'masakYuk',
+      headerTitleStyle : {
+        alignSelf:'center',
+        textAlign: 'center',
+        fontWeight:'500',
+        fontSize:24,
+        color: 'white',
+        width: '90%',
+        justifyContent: "center", 
+      },
+      headerStyle:{backgroundColor:'#ffc107'}
+    }
   }
 })
 
